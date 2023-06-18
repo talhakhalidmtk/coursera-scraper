@@ -70,7 +70,7 @@ def get_details_from_card(txt):
     }
 
 
-def go_to_course(driver):
+def go_to_course(driver, keyword):
     data = []
     pages = get_total_pagination_pages(driver)
     print("Total Pages are: " + str(pages))
@@ -104,9 +104,9 @@ def go_to_course(driver):
                 'institute': get_value('text', COURSE_CARD_XPATH
                                        + '[' + str(y + 1) + ']' + COURSE_CARD_LINK_XPATH + INSTITUTE_XPATH, driver),
                 'rating': get_value('text', RATING_XPATH, driver).replace("\nstars", ""),
-                'recentViews': get_value('text', RECENT_VIEWS_XPATH, driver),
-                'studentsEnrolled': get_students_and_time([STUDENTS_ENROLLED_XPATH1, STUDENTS_ENROLLED_XPATH2], driver),
-                'timeReq': get_students_and_time([TIME_REQ_XPATH1, TIME_REQ_XPATH2], driver),
+                'recent_views': get_value('text', RECENT_VIEWS_XPATH, driver),
+                'students_enrolled': get_students_and_time([STUDENTS_ENROLLED_XPATH1, STUDENTS_ENROLLED_XPATH2], driver),
+                'time_req': get_students_and_time([TIME_REQ_XPATH1, TIME_REQ_XPATH2], driver),
                 'skills': get_value('list', SKILL_XPATH, driver),
                 'learner': get_value('text', LEARNERS_XPATH, driver),
                 'difficulty': details_from_card['difficulty'],
@@ -115,7 +115,7 @@ def go_to_course(driver):
             })
             print(str(y) + ": " + str(data[-1]))
 
-            pd.DataFrame(data=data).to_csv('coursera.csv')
+            pd.DataFrame(data=data).to_csv(f'coursera {keyword}.csv')
 
             driver.close()
             driver.switch_to.window(driver.window_handles[0])

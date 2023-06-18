@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-def main(keyword):
+def scraper(keyword):
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
@@ -14,8 +14,4 @@ def main(keyword):
           f'=prod_all_launched_products_term_optimization_skills_test_for_precise_xdp_imprecise_variant'
     driver.get(url)
     driver.implicitly_wait(TIME_TO_WAIT)
-    go_to_course(driver)
-    print("DONE")
-
-
-main(keyword='python')
+    return go_to_course(driver, keyword)

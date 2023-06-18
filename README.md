@@ -23,6 +23,12 @@ The scraped data is stored in a dictionary format for each course.
 You can install the required Python packages by running the following command:
 ```bash
 pip install -r requirements.txt
+
+pip install coursera-scraper
+
+from coursera-scraper import scraper
+
+results = scraper(keyword='python')
 ```
 
 
