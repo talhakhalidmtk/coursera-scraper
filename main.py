@@ -14,7 +14,7 @@ def main(keyword):
           f'=prod_all_launched_products_term_optimization_skills_test_for_precise_xdp_imprecise_variant'
     driver.get(url)
     driver.implicitly_wait(TIME_TO_WAIT)
-    courses = go_to_course(driver)
+    go_to_course(driver)
     print("DONE")
 
 
