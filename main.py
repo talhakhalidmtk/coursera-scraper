@@ -1,5 +1,5 @@
-from utils import go_to_course
-from constants import TIME_TO_WAIT
+from .utils import go_to_course
+from .constants import TIME_TO_WAIT
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
