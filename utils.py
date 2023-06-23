@@ -70,7 +70,7 @@ def get_details_from_card(txt):
     }
 
 
-def go_to_course(driver, keyword):
+def go_to_course(driver, keyword, csv):
     data = []
     pages = get_total_pagination_pages(driver)
     print("Total Pages are: " + str(pages))
@@ -88,7 +88,7 @@ def go_to_course(driver, keyword):
             driver.implicitly_wait(TIME_TO_NEXT_PAGE)  # waiting for next page to load
 
         links = get_total_courses_in_page(driver)
-        print('total links in page no.' + str(x + 1) + ' is : ' + str(len(links)))
+        print('Total links in page # ' + str(x + 1) + ' are : ' + str(len(links)))
 
         for y in range(len(links)):
             details_from_card = get_details_from_card(get_value('text', COURSE_CARD_XPATH + '[' + str(
@@ -100,6 +100,7 @@ def go_to_course(driver, keyword):
             driver.switch_to.window(driver.window_handles[1])
 
             data.append({
+                'link': driver.current_url,
                 'title': get_value('text', TITLE_XPATH, driver),
                 'institute': get_value('text', COURSE_CARD_XPATH
                                        + '[' + str(y + 1) + ']' + COURSE_CARD_LINK_XPATH + INSTITUTE_XPATH, driver),
@@ -115,8 +116,10 @@ def go_to_course(driver, keyword):
             })
             print(str(y) + ": " + str(data[-1]))
 
-            pd.DataFrame(data=data).to_csv(f'coursera {keyword}.csv')
+            if csv:
+                pd.DataFrame(data=data).to_csv(f'coursera {keyword}.csv')
+
+            yield data[-1]
 
             driver.close()
             driver.switch_to.window(driver.window_handles[0])
-    return data

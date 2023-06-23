@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-def scraper(keyword):
+def scraper(keyword, csv=True):
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
@@ -14,4 +14,5 @@ def scraper(keyword):
           f'=prod_all_launched_products_term_optimization_skills_test_for_precise_xdp_imprecise_variant'
     driver.get(url)
     driver.implicitly_wait(TIME_TO_WAIT)
-    return go_to_course(driver, keyword)
+    for course in go_to_course(driver, keyword, csv):
+        yield course

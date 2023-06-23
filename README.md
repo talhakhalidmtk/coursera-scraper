@@ -1,11 +1,12 @@
 # Coursera Scraper
 
-This repository contains a Python script that utilizes Selenium to scrape data from Coursera. The script collects information about various courses and their details from Coursera's website.
-
+This repository contains a Python script that utilizes Selenium to scrape data from Coursera. 
+git 
 ## Scraped Fields
 
 The script scrapes the following fields for each course:
-1. Title: The title of the course.
+1. Link: Link of the course
+2. Title: The title of the course.
 2. Institute: The institution offering the course (if available).
 3. Rating: The course rating.
 4. Recent Views: The number of recent views for the course.
@@ -26,7 +27,8 @@ pip install coursera-scraper
 
 from scraper.main import scraper
 
-results = scraper(keyword='python')
+for course_detail in scraper(keyword='python'):
+    # do some processing on course detail
 ```
 
 
